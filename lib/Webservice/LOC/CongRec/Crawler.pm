@@ -8,7 +8,12 @@ use WebService::LOC::CongRec::Util;
 use Webservice::LOC::CongRec::Day;
 use Webservice::LOC::CongRec::Page;
 use DateTime;
-use Data::Dumper;
+
+=head1 SYNOPSIS
+
+    Log::Log4perl->init_once('log4perl.conf');
+    $crawler = CongRec::Crawler->new();
+    $crawler->goForth();
 
 =head1 ATTRIBUTES
 
