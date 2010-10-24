@@ -1,6 +1,6 @@
 use 5.12.0;
 
-package WebService::LOC::CongRec::Crawler 0.1;
+package WebService::LOC::CongRec::Crawler 0.1_01
 use Moose 1.13;
 with 'MooseX::Log::Log4perl';
 
