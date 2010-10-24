@@ -1,0 +1,18 @@
+Build.PL
+lib/Webservice/LOC/CongRec/Crawler.pm
+lib/Webservice/LOC/CongRec/Day.pm
+lib/Webservice/LOC/CongRec/Page.pm
+lib/Webservice/LOC/CongRec/Util.pm
+log4perl.conf
+MANIFEST			This list of files
+README
+t/10_Use.t
+t/50_Unit.t
+t/lib/Webservice/LOC/CongRec/DayTest.pm
+t/lib/Webservice/LOC/CongRec/PageTest.pm
+t/lib/Webservice/LOC/CongRec/TestBase.pm
+t/lib/Webservice/LOC/CongRec/UtilTest.pm
+t/log4perl.conf
+t/perlcriticrc
+t/testHTML/111-S7671.html
+META.yml

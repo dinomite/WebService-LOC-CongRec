@@ -26,7 +26,7 @@ use Module::Build;
 
 my $build = Module::Build->new (
     module_name     => 'WebService::LOC::CongRec',
-    license         => 'Standard-Perl',
+    license         => 'perl',
     dist_author     => 'Drew Stephens <drew@dinomite.net>',
     dist_version    => '0.1',
     test_author     => 'Drew Stephens <drew@dinomite.net>',
