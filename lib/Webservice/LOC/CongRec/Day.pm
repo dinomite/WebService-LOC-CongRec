@@ -1,6 +1,7 @@
 use 5.12.0;
 
-package WebService::LOC::CongRec::Day 0.1_01
+package WebService::LOC::CongRec::Day;
+our $VERSION = '0.1_02';
 use Moose 1.13;
 with 'MooseX::Log::Log4perl';
 
