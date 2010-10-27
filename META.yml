@@ -1,0 +1,34 @@
+---
+abstract: 'Get the congressional record from thomas.loc.gov'
+author:
+  - 'Drew Stephens <drew@dinomite.net>'
+build_requires:
+  HTML::Strip: 1.06
+  Moose: 1.13
+  MooseX::Log::Log4perl: 0.42
+  MooseX::Types::DateTime: 0.05
+  WWW::Mechanize: 1.64
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3603'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: WebService-LOC-CongRec
+provides:
+  WebService::LOC::CongRec::Crawler:
+    file: lib/Webservice/LOC/CongRec/Crawler.pm
+    version: 0.1_02
+  WebService::LOC::CongRec::Day:
+    file: lib/Webservice/LOC/CongRec/Day.pm
+    version: 0.1_02
+  WebService::LOC::CongRec::Page:
+    file: lib/Webservice/LOC/CongRec/Page.pm
+    version: 0.1_02
+  WebService::LOC::CongRec::Util:
+    file: lib/Webservice/LOC/CongRec/Util.pm
+    version: 0.1_02
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.1_02

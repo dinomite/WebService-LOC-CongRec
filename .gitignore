@@ -1,7 +1,6 @@
 Build
 MANIFEST.SKIP
 MANIFEST.SKIP.bak
-META.yml
 MYMETA.yml
 WebService-LOC-CongRec-0.1.tar.gz
 _build/
