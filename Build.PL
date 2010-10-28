@@ -36,6 +36,7 @@ my $build = Module::Build->new (
         'Moose'             => '1.13',
         'MooseX::Log::Log4perl'     => '0.42',
         'MooseX::Types::DateTime'   => '0.05',
+        'Test::Class'       => '0.36',
         'WWW::Mechanize'    => '1.64',
     }
 );

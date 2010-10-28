@@ -2,6 +2,7 @@ use 5.12.0;
 use warnings;
 
 use lib 't/lib';
+use Test::Class;
 #use Devel::Cover qw(-silent 1);
 
 use WebService::LOC::CongRec::DayTest;
