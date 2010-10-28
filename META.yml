@@ -7,6 +7,7 @@ build_requires:
   Moose: 1.13
   MooseX::Log::Log4perl: 0.42
   MooseX::Types::DateTime: 0.05
+  Test::Class: 0.36
   WWW::Mechanize: 1.64
 configure_requires:
   Module::Build: 0.36
@@ -19,16 +20,16 @@ name: WebService-LOC-CongRec
 provides:
   WebService::LOC::CongRec::Crawler:
     file: lib/WebService/LOC/CongRec/Crawler.pm
-    version: 0.1_02
+    version: 0.1_03
   WebService::LOC::CongRec::Day:
     file: lib/WebService/LOC/CongRec/Day.pm
-    version: 0.1_02
+    version: 0.1_03
   WebService::LOC::CongRec::Page:
     file: lib/WebService/LOC/CongRec/Page.pm
-    version: 0.1_02
+    version: 0.1_03
   WebService::LOC::CongRec::Util:
     file: lib/WebService/LOC/CongRec/Util.pm
-    version: 0.1_02
+    version: 0.1_03
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.1_02
+version: 0.1_03
