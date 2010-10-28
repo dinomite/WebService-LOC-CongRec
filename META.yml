@@ -18,16 +18,16 @@ meta-spec:
 name: WebService-LOC-CongRec
 provides:
   WebService::LOC::CongRec::Crawler:
-    file: lib/Webservice/LOC/CongRec/Crawler.pm
+    file: lib/WebService/LOC/CongRec/Crawler.pm
     version: 0.1_02
   WebService::LOC::CongRec::Day:
-    file: lib/Webservice/LOC/CongRec/Day.pm
+    file: lib/WebService/LOC/CongRec/Day.pm
     version: 0.1_02
   WebService::LOC::CongRec::Page:
-    file: lib/Webservice/LOC/CongRec/Page.pm
+    file: lib/WebService/LOC/CongRec/Page.pm
     version: 0.1_02
   WebService::LOC::CongRec::Util:
-    file: lib/Webservice/LOC/CongRec/Util.pm
+    file: lib/WebService/LOC/CongRec/Util.pm
     version: 0.1_02
 resources:
   license: http://dev.perl.org/licenses/
