@@ -20,16 +20,16 @@ name: WebService-LOC-CongRec
 provides:
   WebService::LOC::CongRec::Crawler:
     file: lib/WebService/LOC/CongRec/Crawler.pm
-    version: 0.1_03
+    version: 0.1_04
   WebService::LOC::CongRec::Day:
     file: lib/WebService/LOC/CongRec/Day.pm
-    version: 0.1_03
+    version: 0.1_04
   WebService::LOC::CongRec::Page:
     file: lib/WebService/LOC/CongRec/Page.pm
-    version: 0.1_03
+    version: 0.1_04
   WebService::LOC::CongRec::Util:
     file: lib/WebService/LOC/CongRec/Util.pm
-    version: 0.1_03
+    version: 0.1_04
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.1_03
+version: 0.1_04
