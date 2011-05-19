@@ -84,7 +84,7 @@ Returns the total number of pages grabbed.
 =cut
 
 sub goForth {
-    my ($self) = @_;
+    my ($self, $process) = @_;
     $grabbed = 0
 
     $self->mech->get($self->issuesRoot);
@@ -103,9 +103,7 @@ sub goForth {
                     url => $pageURL,
             );
 
-            # Do something here (put it in a DB perhaps)
-            # $day has the house and date
-            # $webPage has the pageID, summary, and content
+            $process->($webPage) if $process && ref $process eq 'CODE';
 
             $grabbed++;
         }
