@@ -1,8 +1,6 @@
-use 5.12.0;
-
 package WebService::LOC::CongRec::Util;
 our $VERSION = '0.1_04';
-use Moose 1.13;
+use Moose;
 with 'MooseX::Log::Log4perl';
 
 =head1 DESCRIPTION

@@ -1,4 +1,3 @@
-use 5.12.0;
 use warnings;
 
 =head1 NAME
