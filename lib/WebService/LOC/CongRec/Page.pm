@@ -3,7 +3,7 @@ our $VERSION = '0.1_04';
 use Moose;
 with 'MooseX::Log::Log4perl';
 
-use HTML::Strip;
+use HTML::TokeParser;
 use Data::Dumper;
 
 =head1 DESCRIPTION
@@ -84,35 +84,50 @@ has 'content' => (
 sub BUILD {
     my ($self) = @_;
 
-    my $tagStripper = HTML::Strip->new();
     $self->mech->get($self->url);
+    eval { $self->mech->follow_link(text => 'Printer Friendly Display'); };
 
-    my @lines = split /\n/, $self->mech->content;
-    foreach my $line (@lines) {
-        # Summary line doesn't have a <p> leader
-        if ($line =~ m!^<b>(.+)</b><br/>!) {
-            $self->summary($1);
-            next;
+    my $p = HTML::TokeParser->new(\$self->mech->content);
+
+    my $text = '';
+
+    while (my $t = $p->get_token) {
+        my ($ttype, $ttag) = ($t->[0], $t->[1]);
+
+        if ($ttype eq 'S' && $ttag eq 'center') {
+            $text .= $p->get_trimmed_text("/$ttag");
+            last if $ttype eq 'E' && $ttag eq 'center';
         }
 
-        next if ($line !~ /^<p>/ || $line =~ /^<p>---/);
+        $self->summary($text);
+        $self->log->debug("Summary: $text");
 
-        # Page ID
-        if ($line =~ m!^<p><center><pre>\[Page: ([HSE]\d{1,6})\] <b>!) {
-            $self->pageID($1);
-            next;
-        }
+        $text = '';
+        while (my $t = $p->get_token) {
+            my ($ttype, $ttag) = ($t->[0], $t->[1]);
 
-        # Line of actual content
-        if ($line =~ m/^<p>(.*)$/) {
-            my $text = $tagStripper->parse($1) . "\n";
+            if ($ttype eq 'S' && $ttag eq 'center') {
+                $text .= $p->get_trimmed_text("/$ttag");
+                last if $ttype eq 'E' && $ttag eq 'center';
 
-            # Strip non-breaking spaces
-            $text =~ s/\xA0//g;
+                $text =~ s/^\[Page: ([HSE]\d{1,6})\].*$/$1/;
+                $self->pageID($text);
+                $self->log->debug("pageID: $text");
+                $text = '';
 
-            $self->content($self->content . $text);
+                while (my $t = $p->get_token('p')) {
+                    my ($ttype, $ttag) = ($t->[0], $t->[1]);
+                    my $x = $p->get_trimmed_text;
+                    last if $x eq 'END';
+                    $x =~ s/\xA0//g;
+                    next if $x =~ /^$/;
+                    $text .= $x . "\n";
+                }
 
-            $tagStripper->eof();
+                $self->content($text);
+                $self->log->debug(sprintf("Content: (%d) %s...", length($text), substr($text, 0, 50)));
+                $self->mech->back;
+            }
         }
     }
 }
