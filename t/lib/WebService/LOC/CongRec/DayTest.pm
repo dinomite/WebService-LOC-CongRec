@@ -56,7 +56,8 @@ sub getPages_usesPassedMech : Test(2) {
     my ($self) = @_;
     my $mech = $self->{'mech'};
 
-    $mech->get("http://example.com");
+    my $firstURL = 'http://www.iana.org/domains/example/';
+    $mech->get($firstURL);
 
     # http://thomas.loc.gov/cgi-bin/query/B?r111:@FIELD(FLD003+s)+@FIELD(DDATE+20101001)
     my $day = WebService::LOC::CongRec::Day->new(
@@ -69,7 +70,7 @@ sub getPages_usesPassedMech : Test(2) {
 
     like($mech->uri(), qr/thomas.loc.gov/);
     $mech->back();
-    like($mech->uri(), qr/example.com/);
+    like($mech->uri(), qr#http://www.iana.org/domains/example/#);
 };
 
 sub _build_pages_correctNumber : Test(1) {

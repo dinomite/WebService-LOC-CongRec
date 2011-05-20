@@ -11,7 +11,7 @@ use WWW::Mechanize;
 sub setup : Test(setup) {
     my ($self) = @_;
 
-    my $testDir = CongRec::TestBase->getTestDir();
+    my $testDir = WebService::LOC::CongRec::TestBase->getTestDir();
     $self->{'testFile'} = URI::file->new_abs($testDir . '/testHTML/20010912-Senate-02.html');
     $self->{'mech'} = WWW::Mechanize->new();
 };
@@ -20,12 +20,11 @@ sub pageID : Test(1) {
     my ($self) = @_;
     my $mech = $self->{'mech'};
 
-    my $webPage = CongRec::Web::Page->new(
+    my $webPage = WebService::LOC::CongRec::Page->new(
             mech    => $self->{'mech'},
             url     => $self->{'testFile'}->as_string(),
     );
 
-#diag('i: ', $webPage->pageID);
     is($webPage->pageID, 'xS9283');
 };
 
@@ -33,12 +32,11 @@ sub summary : Test(1) {
     my ($self) = @_;
     my $mech = $self->{'mech'};
 
-    my $webPage = CongRec::Web::Page->new(
+    my $webPage = WebService::LOC::CongRec::Page->new(
             mech    => $self->{'mech'},
             url     => $self->{'testFile'}->as_string(),
     );
 
-#diag('s: ', $webPage->summary);
     is($webPage->summary, 'PLEDGE OF ALLEGIANCE -- (Senate - September 12, 2001)');
 };
 
@@ -46,7 +44,7 @@ sub content : Test(1) {
     my ($self) = @_;
     my $mech = $self->{'mech'};
 
-    my $webPage = CongRec::Web::Page->new(
+    my $webPage = WebService::LOC::CongRec::Page->new(
             mech    => $self->{'mech'},
             url     => $self->{'testFile'}->as_string(),
     );
