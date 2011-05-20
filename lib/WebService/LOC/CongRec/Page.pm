@@ -90,15 +90,16 @@ sub BUILD {
     my $p = HTML::TokeParser->new(\$self->mech->content);
 
     my $text = '';
-
     while (my $t = $p->get_token) {
         my ($ttype, $ttag) = ($t->[0], $t->[1]);
 
+        # Find & retrieve the summary
         if ($ttype eq 'S' && $ttag eq 'center') {
             $text .= $p->get_trimmed_text("/$ttag");
             last if $ttype eq 'E' && $ttag eq 'center';
         }
 
+        # Set the summary
         $self->summary($text);
         $self->log->debug("Summary: $text");
 
@@ -110,11 +111,13 @@ sub BUILD {
                 $text .= $p->get_trimmed_text("/$ttag");
                 last if $ttype eq 'E' && $ttag eq 'center';
 
+                # Set the page ID
                 $text =~ s/^\[Page: ([HSE]\d{1,6})\].*$/$1/;
                 $self->pageID($text);
                 $self->log->debug("pageID: $text");
                 $text = '';
 
+                # Gather up the page's content
                 while (my $t = $p->get_token('p')) {
                     my ($ttype, $ttag) = ($t->[0], $t->[1]);
                     my $x = $p->get_trimmed_text;
@@ -124,6 +127,7 @@ sub BUILD {
                     $text .= $x . "\n";
                 }
 
+                # Set the page content
                 $self->content($text);
                 $self->log->debug(sprintf("Content: (%d) %s...", length($text), substr($text, 0, 50)));
                 $self->mech->back;
