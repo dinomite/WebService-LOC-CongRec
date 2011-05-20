@@ -85,7 +85,7 @@ Returns the total number of pages grabbed.
 
 sub goForth {
     my ($self, $process) = @_;
-    $grabbed = 0
+    my $grabbed = 0;
 
     $self->mech->get($self->issuesRoot);
     $self->parseRoot($self->mech->content);
