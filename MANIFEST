@@ -14,5 +14,5 @@ t/lib/WebService/LOC/CongRec/TestBase.pm
 t/lib/WebService/LOC/CongRec/UtilTest.pm
 t/log4perl.conf
 t/perlcriticrc
-t/testHTML/111-S7671.html
+t/testHTML/20010912-Senate-02.html
 META.yml
