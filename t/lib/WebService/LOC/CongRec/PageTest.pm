@@ -25,7 +25,7 @@ sub pageID : Test(1) {
             url     => $self->{'testFile'}->as_string(),
     );
 
-    is($webPage->pageID, 'xS9283');
+    is($webPage->pageID, 'S9283');
 };
 
 sub summary : Test(1) {
