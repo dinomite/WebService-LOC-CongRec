@@ -7,6 +7,7 @@ use WebService::LOC::CongRec::Util;
 use WebService::LOC::CongRec::Day;
 use WebService::LOC::CongRec::Page;
 use DateTime;
+use WWW::Mechanize;
 
 =head1 SYNOPSIS
 
@@ -64,7 +65,7 @@ has 'mech' => (
 
 sub _build_mech {
     return WWW::Mechanize->new(
-        agent => 'CongRec http://github.com/dinomite/CongRec; ' .
+        agent => 'CongRec https://github.com/dinomite/WebService-LOC-CongRec; ' .
                     WWW::Mechanize->VERSION,
     );
 }

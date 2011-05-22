@@ -9,7 +9,7 @@ my $max = shift || 10;
 
 Log::Log4perl->init_once('log4perl.conf');
 
-my $crawler = CongRec::Crawler->new();
+my $crawler = WebService::LOC::CongRec::Crawler->new();
 
 my $i = 1;
 
