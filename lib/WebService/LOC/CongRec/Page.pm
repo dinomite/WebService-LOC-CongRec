@@ -109,9 +109,6 @@ sub BUILD {
             $text = '';
             last if $self->summary && $self->pageID;
         }
-        else {
-            $self->log->debug("WARNING: Uncaptured: $t, $ttype, $ttag, $text");
-        }
     }
 
     # Set the page content
