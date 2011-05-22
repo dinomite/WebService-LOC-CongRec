@@ -103,7 +103,7 @@ sub goForth {
                     url => $pageURL,
             );
 
-            $process->($webPage) if $process && ref $process eq 'CODE';
+            $process->($day, $webPage) if $process && ref $process eq 'CODE';
 
             $grabbed++;
         }
