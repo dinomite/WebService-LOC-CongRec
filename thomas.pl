@@ -18,6 +18,7 @@ $crawler->goForth(\&process_page);
 # Simplistic example of mid-crawl page processing
 sub process_page {
     my ($day, $page) = shift;
-    $page->log->info("Page #$i");
+    my $logger = Log::Log4perl->get_logger('thomas.pl.process_page');
+    $logger->info("Page #$i");
     exit if ++$i > $max;
 }
