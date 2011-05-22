@@ -104,6 +104,7 @@ sub goForth {
                     url => $pageURL,
             );
 
+            # Invoke the callback if one was provided
             $process->($day, $webPage) if $process && ref $process eq 'CODE';
 
             $grabbed++;
