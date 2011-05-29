@@ -11,8 +11,10 @@ use WWW::Mechanize;
 
 =head1 SYNOPSIS
 
+    use WebService::LOC::CongRec::Crawler;
+    use Log::Log4perl;
     Log::Log4perl->init_once('log4perl.conf');
-    $crawler = CongRec::Crawler->new();
+    $crawler = WebService::LOC::CongRec::Crawler->new();
     $crawler->goForth();
 
 =head1 ATTRIBUTES
@@ -34,7 +36,7 @@ has 'issuesRoot' => (
     default => 'http://thomas.loc.gov/home/Browse.php?&n=Issues',
 );
 
-=item days
+=item issues
 
 A hash of issues: %issues{year}{month}{day}{section}
 
@@ -72,7 +74,7 @@ sub _build_mech {
 
 =head1 METHODS
 
-=head3 goFrom()
+=head2 goForth()
 
 Start crawling from the Daily Digest issues page, i.e.
 http://thomas.loc.gov/home/Browse.php?&n=Issues
@@ -114,7 +116,7 @@ sub goForth {
     return $grabbed;
 }
 
-=head3 parseRoot(Str $content)
+=head2 parseRoot(Str $content)
 
 Parse the the root of an issue an fill our hash of available issues
 
