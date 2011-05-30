@@ -100,7 +100,7 @@ sub BUILD {
             if ($self->summary) {
                 $text =~ s/\[Page: ([HSE]\d{1,6})\] .*$/$1/;
                 $self->pageID($text);
-                $self->log->debug("pageID $text");
+                $self->log->debug("pageID: $text");
             }
             else {
                 $self->summary($text);
