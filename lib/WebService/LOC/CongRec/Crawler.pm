@@ -76,6 +76,11 @@ sub _build_mech {
 
 =head2 goForth()
 
+ $crawler->goForth();
+ $crawler->goForth(process => \&process_page);
+ $crawler->goForth(start => $x);
+ $crawler->goForth(end => $y);
+
 Start crawling from the Daily Digest issues page, i.e.
 http://thomas.loc.gov/home/Browse.php?&n=Issues
 
@@ -84,21 +89,40 @@ http://thomas.loc.gov/home/Browse.php?&n=Issues&c=NUM
 
 Returns the total number of pages grabbed.
 
+Accepts an optional processing function to perform for each page.
+
+Accpets optional page counter start and end ranges.  If neither are
+given, or given as zero, crawing starts from the beginning and
+goes until all pages are visited.
+
 =cut
 
 sub goForth {
-    my ($self, $process) = @_;
+    my $self = shift;
+    my $args = {
+        process => undef,
+        start   => 0,
+        end     => 0,
+        @_
+    };
     my $grabbed = 0;
+    my $seen = 0;
 
     $self->mech->get($self->issuesRoot);
     $self->parseRoot($self->mech->content);
 
     # Go through each of the days
     foreach my $day (@{$self->issues}) {
+        last if $args->{end} && $seen >= $args->{end};
+
         $self->log->info("Date: " . $day->date->strftime('%Y-%m-%d') . "; " . $day->house);
 
         # Each of the pages for day
         foreach my $pageURL (@{$day->pages}) {
+            last if $args->{end} && $seen >= $args->{end};
+            $seen++;
+            next if $args->{start} && $seen < $args->{start};
+
             $self->log->debug("Getting page: $pageURL");
 
             my $webPage = WebService::LOC::CongRec::Page->new(
@@ -107,7 +131,7 @@ sub goForth {
             );
 
             # Invoke the callback if one was provided
-            $process->($day, $webPage) if $process && ref $process eq 'CODE';
+            $args->{process}->($day, $webPage) if $args->{process} && ref $args->{process} eq 'CODE';
 
             $grabbed++;
         }
