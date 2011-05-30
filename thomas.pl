@@ -13,7 +13,7 @@ my $crawler = WebService::LOC::CongRec::Crawler->new();
 
 my $i = 1;
 
-$crawler->goForth(\&process_page);
+$crawler->goForth(process => \&process_page);
 
 # Simplistic example of mid-crawl page processing
 sub process_page {
