@@ -105,8 +105,9 @@ sub goForth {
         end     => 0,
         @_
     };
-    my $grabbed = 0;
-    my $seen = 0;
+    my $n = \$args->{start};  # Page iterator
+    my $grabbed = 0;  # Pages seen.
+    my $seen = 0;  # Issues seen.
 
     $self->mech->get($self->issuesRoot);
     $self->parseRoot($self->mech->content);
@@ -120,7 +121,7 @@ sub goForth {
         # Each of the pages for day
         foreach my $pageURL (@{$day->pages}) {
             last if $args->{end} && $seen >= $args->{end};
-            $seen++;
+            $seen++;  # Increment issue.
             next if $args->{start} && $seen < $args->{start};
 
             $self->log->debug("Getting page: $pageURL");
@@ -133,7 +134,8 @@ sub goForth {
             # Invoke the callback if one was provided
             $args->{process}->($day, $webPage) if $args->{process} && ref $args->{process} eq 'CODE';
 
-            $grabbed++;
+            $$n++;  # Increment page number visited.
+            $grabbed++;  # Increment total pages visited.
         }
     }
 
