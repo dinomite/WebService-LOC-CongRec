@@ -13,7 +13,15 @@ my $crawler = WebService::LOC::CongRec::Crawler->new();
 
 my $i = 1;
 
-$crawler->goForth(process => \&process_page);
+RETRY:
+eval '$crawler->goForth(process => \&process_page, start => $i);';
+if ($@) {
+    warn $@, "\n";
+    warn "Retrying page $i...\n";
+    goto RETRY;
+}
+
+warn "Pages seen: $i\n";
 
 # Simplistic example of mid-crawl page processing
 sub process_page {
