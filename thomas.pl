@@ -27,6 +27,6 @@ warn "Pages seen: $i\n";
 sub process_page {
     my ($day, $page) = @_;
     my $logger = Log::Log4perl->get_logger('thomas.pl.process_page');
-    $logger->info("Page #$i");
+    $logger->info("Page #$i ID " . $page->pageID);
     exit if ++$i > $max;
 }
