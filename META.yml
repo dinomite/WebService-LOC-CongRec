@@ -3,7 +3,7 @@ abstract: 'Get the congressional record from thomas.loc.gov'
 author:
   - 'Drew Stephens <drew@dinomite.net>'
 build_requires:
-  HTML::Strip: 1.06
+  HTML::TokeParser: 3.57
   Moose: 1.13
   MooseX::Log::Log4perl: 0.42
   MooseX::Types::DateTime: 0.05
@@ -26,10 +26,10 @@ provides:
     version: 0.1_04
   WebService::LOC::CongRec::Page:
     file: lib/WebService/LOC/CongRec/Page.pm
-    version: 0.1_04
+    version: 0.1_05
   WebService::LOC::CongRec::Util:
     file: lib/WebService/LOC/CongRec/Util.pm
     version: 0.1_04
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.1_04
+version: 0.1_05
