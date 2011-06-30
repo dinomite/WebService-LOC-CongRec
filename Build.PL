@@ -8,7 +8,7 @@ Drew Stephens <drew@dinomite.net>
 
 =head1 CONTRIBUTORS
 
-Gene Boggs <gene.boggs@gmail.com>
+Gene Boggs <gene@cpan.org>
 
 =head1 COPYRIGHT
 
