@@ -134,7 +134,7 @@ sub goForth {
             # Invoke the callback if one was provided
             eval { $args->{process}->($day, $webPage) }
                 if $args->{process} && ref $args->{process} eq 'CODE';
-            die "ERROR: $@" if $@;
+            $self->log->warn($@) if $@;
 
             $$n++;  # Increment page number visited.
             $grabbed++;  # Increment total pages visited.
