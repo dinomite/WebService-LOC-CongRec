@@ -119,7 +119,7 @@ sub BUILD {
         $x =~ s/\xA0//g; # Unprintable character that may sometimes crop up.
         next if $x =~ /^$/; # Skip blank lines.
         $text .= $x; # Append the latest text.
-        $text .= "\n" if $text =~ /\w\.$/; # Append a newline if we are at the end of a sentence.
+        $text .= "\n" if $text =~ /\w\.\)?$/; # Append a newline if we are at the end of a sentence.
     }
     $self->content($text);
     $self->log->debug(sprintf("Content: (%d) %s...", length($text), substr($text, 0, 50)));
