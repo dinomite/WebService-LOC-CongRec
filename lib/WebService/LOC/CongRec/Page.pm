@@ -113,13 +113,13 @@ sub BUILD {
 
     # Set the page content
     $text = '';
-    while (my $t = $p->get_token('p')) {
-        my ($ttype, $ttag) = ($t->[0], $t->[1]);
+    while ($p->get_token('p')) {
         my $x = $p->get_trimmed_text;
-        last if $x eq 'END';
-        $x =~ s/\xA0//g;
-        next if $x =~ /^$/;
-        $text .= $x . "\n";
+        last if $x eq 'END'; # The "Printer Friendly" page end is clearly identified.
+        $x =~ s/\xA0//g; # Unprintable character that may sometimes crop up.
+        next if $x =~ /^$/; # Skip blank lines.
+        $text .= $x; # Append the latest text.
+        $text .= "\n" if $text =~ /\w\.$/; # Append a newline if we are at the end of a sentence.
     }
     $self->content($text);
     $self->log->debug(sprintf("Content: (%d) %s...", length($text), substr($text, 0, 50)));
