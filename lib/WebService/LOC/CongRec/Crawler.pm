@@ -8,6 +8,7 @@ use WebService::LOC::CongRec::Day;
 use WebService::LOC::CongRec::Page;
 use DateTime;
 use WWW::Mechanize;
+use HTML::TokeParser;
 
 =head1 SYNOPSIS
 
@@ -153,37 +154,31 @@ Parse the the root of an issue an fill our hash of available issues
 sub parseRoot {
     my ($self, $content) = @_;
 
-    # Fast forward to the table
-    my @lines = split /\n/, $content;
-    foreach my $line (@lines) {
-        last if $line =~ /<table/;
-    }
+    my $p = HTML::TokeParser->new(\$self->mech->content);
 
-    my $year = '';
-    foreach my $line (@lines) {
-        last if $line =~ m!</table>!;
+    # Collect the issues for each date.
+    my ($text, $year, $month, $day);
+    while (my $t = $p->get_token) {
+        my ($ttype, $ttag) = ($t->[0], $t->[1]);
 
-        # Initialize the top-level of the hash when we see a new year
-        if ($line =~ /<font size=4>\w+ ([12]\d{3})/) {
+        if ($ttype eq 'S' && $ttag eq 'th') {
+            $text = $p->get_trimmed_text("/$ttag");
+        }
+        elsif ($ttype eq 'E' && $ttag eq 'th' && $text =~ /^\w+ (\d{4})$/) {
             $year = $1;
-            next;
         }
-
-        # Each row begins with a date
-        my ($month, $day);
-        if ($line =~ /<td width=25%>(\w+) +([123]\d|\d)/) {
-            $month = WebService::LOC::CongRec::Util->getMonthNumberFromString($1);
-            $day = $2;
-        } else {
-            next;
+        elsif ($ttype eq 'S' && $ttag eq 'td') {
+            $text = $p->get_trimmed_text("/$ttag");
         }
+        elsif ($ttype eq 'E' && $ttag eq 'td' && $text =~ /^(\d+)\/(\d+)$/) {
+            ($month, $day) = ($1, $2);
 
-        # Create a CR::W:Day for each issue that exists for this line
-        my $date = DateTime->new(year => $year, month => $month, day => $day, time_zone => 'America/Los_Angeles');
-        push @{$self->issues}, $self->makeDay($date, 'h') if ($line =~ />House</);
-        push @{$self->issues}, $self->makeDay($date, 's') if ($line =~ />Senate</);
-        push @{$self->issues}, $self->makeDay($date, 'e') if ($line =~ />Extension of Remarks</);
-        push @{$self->issues}, $self->makeDay($date, 'd') if ($line =~ />Daily Diges</);
+            # Create a Day object for each section.
+            for my $section (qw(h s e d)) {
+                my $date = DateTime->new(year => $year, month => $month, day => $day, time_zone => 'America/Los_Angeles');
+                push @{$self->issues}, $self->makeDay($date, $section);
+            }
+        }
     }
 }
 
