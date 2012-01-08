@@ -84,6 +84,7 @@ has 'content' => (
 sub BUILD {
     my ($self) = @_;
 
+warn"U: ",$self->url,"\n";
     $self->mech->get($self->url);
     eval { $self->mech->follow_link(text => 'Printer Friendly Display'); };
 
@@ -118,8 +119,7 @@ sub BUILD {
         last if $x eq 'END'; # The "Printer Friendly" page end is clearly identified.
         $x =~ s/\xA0//g; # Unprintable character that may sometimes crop up.
         next if $x =~ /^$/; # Skip blank lines.
-        $text .= $x; # Append the latest text.
-        $text .= "\n" if $text =~ /\w\.\)?$/; # Append a newline if we are at the end of a sentence.
+        $text .= "$x\n"; # Append the latest text.
     }
     $self->content($text);
     $self->log->debug(sprintf("Content: (%d) %s...", length($text), substr($text, 0, 50)));
