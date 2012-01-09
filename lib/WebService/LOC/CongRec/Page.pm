@@ -84,7 +84,6 @@ has 'content' => (
 sub BUILD {
     my ($self) = @_;
 
-warn"U: ",$self->url,"\n";
     $self->mech->get($self->url);
     eval { $self->mech->follow_link(text => 'Printer Friendly Display'); };
 
