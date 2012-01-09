@@ -1,5 +1,5 @@
 package WebService::LOC::CongRec::Day;
-our $VERSION = '0.1';
+our $VERSION = '0.3';
 use Moose;
 with 'MooseX::Log::Log4perl';
 
