@@ -16,3 +16,4 @@ t/log4perl.conf
 t/perlcriticrc
 t/testHTML/20010912-Senate-02.html
 META.yml
+META.json

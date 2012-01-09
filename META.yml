@@ -10,8 +10,9 @@ build_requires:
   Test::Class: 0.36
   WWW::Mechanize: 1.64
 configure_requires:
-  Module::Build: 0.36
-generated_by: 'Module::Build version 0.3603'
+  Module::Build: 0.38
+dynamic_config: 1
+generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.112621'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -20,16 +21,16 @@ name: WebService-LOC-CongRec
 provides:
   WebService::LOC::CongRec::Crawler:
     file: lib/WebService/LOC/CongRec/Crawler.pm
-    version: 0.3
+    version: 0.4
   WebService::LOC::CongRec::Day:
     file: lib/WebService/LOC/CongRec/Day.pm
-    version: 0.3
+    version: 0.4
   WebService::LOC::CongRec::Page:
     file: lib/WebService/LOC/CongRec/Page.pm
-    version: 0.3
+    version: 0.4
   WebService::LOC::CongRec::Util:
     file: lib/WebService/LOC/CongRec/Util.pm
-    version: 0.3
+    version: 0.4
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.3
+version: 0.4
