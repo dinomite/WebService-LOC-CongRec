@@ -31,6 +31,7 @@ my $build = Module::Build->new (
     dist_version    => '0.5',
     test_author     => 'Drew Stephens <drew@dinomite.net>',
     dist_abstract   => 'Get the congressional record from thomas.loc.gov',
+    repository      => 'https://github.com/dinomite/WebService-LOC-CongRec',
     build_requires  => {
         'HTML::TokeParser'  => '3.57',
         'Moose'             => '1.13',
