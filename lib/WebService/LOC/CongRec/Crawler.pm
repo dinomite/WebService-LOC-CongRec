@@ -16,6 +16,7 @@ use HTML::TokeParser;
     use Log::Log4perl;
     Log::Log4perl->init_once('log4perl.conf');
     $crawler = WebService::LOC::CongRec::Crawler->new();
+    $crawler->oldest(1); # Fetch oldest pages first.
     $crawler->goForth();
 
 =head1 ATTRIBUTES
@@ -60,6 +61,20 @@ has 'mech' => (
     is          => 'rw',
     isa         => 'Object',
     builder     => '_build_mech',
+);
+
+=item oldest
+
+Boolean attribute specifying that pages are visited from earliest to most recent.
+
+The default is 0 - that is visit most recent first.
+
+=cut
+
+has 'oldest' => (
+    is          => 'rw',
+    isa         => 'Bool',
+    default     => 0,
 );
 
 =back
@@ -176,7 +191,12 @@ sub parseRoot {
             # Create a Day object for each section.
             for my $section (qw(h s e d)) {
                 my $date = DateTime->new(year => $year, month => $month, day => $day, time_zone => 'America/Los_Angeles');
-                push @{$self->issues}, $self->makeDay($date, $section);
+                if ($self->oldest) {
+                    unshift @{$self->issues}, $self->makeDay($date, $section);
+                }
+                else {
+                    push @{$self->issues}, $self->makeDay($date, $section);
+                }
             }
         }
     }
