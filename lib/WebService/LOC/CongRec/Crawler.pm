@@ -17,7 +17,7 @@ use HTML::TokeParser;
     Log::Log4perl->init_once('log4perl.conf');
     $crawler = WebService::LOC::CongRec::Crawler->new();
     $crawler->congress(107);
-    $crawler->oldest(1); # Fetch oldest pages first.
+    $crawler->oldest(1);
     $crawler->goForth();
 
 =head1 ATTRIBUTES
@@ -26,7 +26,7 @@ use HTML::TokeParser;
 
 =item congress
 
-The session(s) of congress to be fetched.
+The numbered congress to be fetched.  If this is not given, the current congress is fetched.
 
 =cut
 
