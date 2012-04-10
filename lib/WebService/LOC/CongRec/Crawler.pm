@@ -194,7 +194,7 @@ sub parseRoot {
         if ($ttype eq 'S' && $ttag eq 'td') {
             $text = $p->get_trimmed_text("/$ttag");
         }
-        # Old HTML type for pre-111 congress pages.
+        # Old HTML type for pre-112 congress pages.
         elsif ($ttype eq 'E' && $ttag eq 'td' && $text =~ /^([A-Za-z]+)\s+(\d{4})$/) {
             ($month, $year) = ($1, $2);
             if ($year and $month and $day) {
